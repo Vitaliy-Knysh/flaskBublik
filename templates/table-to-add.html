@@ -1,0 +1,28 @@
+ <div class="row">
+        <div class="col table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Ready boards</th>
+                        <th scope="col">Not ready boards</th>
+                        <th scope="col">Fails percentage</th>
+                        <th scope="col">All Testing Sessions</th>
+                        <th scope="col">Positive Testing Sessions</th>
+                        <th scope="col">Bad Testing Sessions</th>
+                        <th scope="col">Testing sessions vs boards average</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ good_boards | int}}</td>
+                        <td>{{ bad_boards | int}}</td>
+                        <td>{{ ((bad_boards)/(bad_boards+good_boards)*100) | round(2)}} </td>
+                        <td>{{ all | int }}</td>
+                        <td>{{ good | int }}</td>
+                        <td>{{ bad | int }}</td>
+                        <td>{{ ((all)/(bad_boards+good_boards)) | round(2)}} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

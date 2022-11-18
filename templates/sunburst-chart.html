@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script type="text/javascript" src="static/js/plotly.js"></script>
+<!--    <script src="{{ url_for('static', filename='js/bootstrap@4.6.1/bootstrap.min.js') }}"></script>-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap@4.6.1/bootstrap.min.css') }}">
+</head>
+<body>
+     <div class="row">
+        <div class="col table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Готовые платы</th>
+                        <th scope="col">Неготовые платы</th>
+                        <th scope="col">Провалено тестов, %</th>
+                        <th scope="col">Все сессии тестирования</th>
+                        <th scope="col">Пройднные сесси тестирования</th>
+                        <th scope="col">Непройднные сессии тестирования</th>
+                        <th scope="col">Среднее количество тестов на плату</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ 'placeholder'}}</td>
+                        <td>{{ 'placeholder'}}</td>
+                        <td>{{ 'placeholder'}} </td>
+                        <td>{{ 'placeholder'}}</td>
+                        <td>{{ 'placeholder' }}</td>
+                        <td>{{'placeholder' }}</td>
+                        <td>{{ 'placeholder'}} </td>
+<!--                        <td>{{ good_boards | int}}</td>-->
+<!--                        <td>{{ bad_boards | int}}</td>-->
+<!--                        <td>{{ ((bad_boards)/(bad_boards+good_boards)*100) | round(2)}} </td>-->
+<!--                        <td>{{ all | int }}</td>-->
+<!--                        <td>{{ good | int }}</td>-->
+<!--                        <td>{{ bad | int }}</td>-->
+<!--                        <td>{{ ((all)/(bad_boards+good_boards)) | round(2)}} </td>-->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-lg-6" id="myDiv">
+        <script>
+            var data = [{
+  type: "sunburst",
+  ids: {{ ids | tojson | safe  }},
+  labels: {{ labels | tojson | safe  }},
+  parents: {{ parents | tojson | safe  }},
+  values:  {{ values | tojson  }},
+  textinfo: "label+value",
+  insidetextorientation: "horizontal",
+  branchvalues: "total",
+<!--  the line above sets the adequate representation of leaves-->
+  outsidetextfont: {size: 30, color: "#377eb8"},
+  marker: {line: {width: 2},
+  colors: ["#17a2b8","#17a2b8","green","red","green","red"]},
+}];
+
+var layout = {
+  title: {text: 'Готовые и не готовые платы по фабрике:'},
+  margin: {l: 50, r: 0, b: 0, t: 50},
+  width: 700,
+  height: 700,
+  font: {
+    size: 20
+    },
+};
+
+
+Plotly.newPlot('myDiv', data, layout);
+        </script>
+    </div>
+
+<!--    ОСТАНЕТСЯ ЗДЕСЬ ДЛЯ ОБЩЕГО ВИДА ПРИЛОЖЕНИЯ-->
+    <div class="col-lg-6" id="myDiv2">
+        <script>
+            var data = [{
+  type: "sunburst",
+  ids: {{ ids | tojson | safe  }},
+  labels: {{ labels | tojson | safe  }},
+  parents: {{ parents | tojson | safe  }},
+  values:  {{ values | tojson  }},
+  textinfo: "label+value",
+  insidetextorientation: "horizontal",
+  branchvalues: "total",
+<!--  the line above sets the adequate representation of leaves-->
+  outsidetextfont: {size: 30, color: "#377eb8"},
+  marker: {line: {width: 2},
+  colors: ["#17a2b8","#17a2b8","green","red","green","red"]},
+}];
+
+var layout = {
+  title: {text: 'Готовые и не готовые платы по семейству:'},
+  margin: {l: 50, r: 0, b: 0, t: 50},
+  width: 700,
+  height: 700,
+  font: {
+    size: 20
+    },
+};
+
+
+Plotly.newPlot('myDiv2', data, layout);
+        </script>
+    </div>
+</div>
+
+</body>
+</html>
