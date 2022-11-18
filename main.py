@@ -1,16 +1,26 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from flask import Flask, render_template, url_for
+app = Flask(__name__)
+from flask import jsonify, request, render_template
+import plotly.express as px
+import time
 
 
-# Press the green button in the gutter to run the script.
+
+
+@app.route('/')
+def hello():
+    return render_template('index.html')
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    '''app.debug = True
+    app.run()'''
+    data = {'Task': ['Work', 'Eat', 'Commute', 'Watching TV', 'Sleeping'], 'Hours': [11, 2, 2, 2, 7]}
+    fig = px.pie(data, names='Task', values='Hours', color_discrete_sequence=['blue'])
+    fig.update_layout(paper_bgcolor='rgba(0, 255, 0, 0)',
+                      plot_bgcolor='rgba(255, 0, 0, 0)',
+                      font_color='black',
+                      font_family='verdana',
+                      font_size=20)
+    fig.show()
+    fig.write_html('test.html')
+    time.sleep(3)
