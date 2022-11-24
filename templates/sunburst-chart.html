@@ -17,27 +17,20 @@
                         <th scope="col">Неготовые платы</th>
                         <th scope="col">Провалено тестов, %</th>
                         <th scope="col">Все сессии тестирования</th>
-                        <th scope="col">Пройднные сесси тестирования</th>
-                        <th scope="col">Непройднные сессии тестирования</th>
+                        <th scope="col">Пройденные сесси тестирования</th>
+                        <th scope="col">Непройденные сессии тестирования</th>
                         <th scope="col">Среднее количество тестов на плату</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ 'placeholder'}}</td>
-                        <td>{{ 'placeholder'}}</td>
-                        <td>{{ 'placeholder'}} </td>
-                        <td>{{ 'placeholder'}}</td>
-                        <td>{{ 'placeholder' }}</td>
-                        <td>{{'placeholder' }}</td>
-                        <td>{{ 'placeholder'}} </td>
-<!--                        <td>{{ good_boards | int}}</td>-->
-<!--                        <td>{{ bad_boards | int}}</td>-->
-<!--                        <td>{{ ((bad_boards)/(bad_boards+good_boards)*100) | round(2)}} </td>-->
-<!--                        <td>{{ all | int }}</td>-->
-<!--                        <td>{{ good | int }}</td>-->
-<!--                        <td>{{ bad | int }}</td>-->
-<!--                        <td>{{ ((all)/(bad_boards+good_boards)) | round(2)}} </td>-->
+                        <td>{{ good_boards | int}}</td>
+                        <td>{{ bad_boards | int}}</td>
+                        <td>{{ ((bad_boards)/(bad_boards+good_boards)*100) | round(2)}} </td>
+                        <td>{{ all | int }}</td>
+                        <td>{{ good | int }}</td>
+                        <td>{{ bad | int }}</td>
+                        <td>{{ ((all)/(bad_boards+good_boards)) | round(2)}} </td>
                     </tr>
                 </tbody>
             </table>
@@ -48,12 +41,14 @@
         <script>
             var data = [{
   type: "sunburst",
-  ids: {{ ids | tojson | safe  }},
-  labels: {{ labels | tojson | safe  }},
-  parents: {{ parents | tojson | safe  }},
-  values:  {{ values | tojson  }},
+  direction: 'clockwise',
+  ids: {{ ids_left | tojson | safe  }},
+  labels: {{ labels_left | tojson | safe  }},
+  parents: {{ parents_left | tojson | safe  }},
+  values:  {{ values_left | tojson  }},
   textinfo: "label+value",
   insidetextorientation: "horizontal",
+<!--  rotation: 90,-->
   branchvalues: "total",
 <!--  the line above sets the adequate representation of leaves-->
   outsidetextfont: {size: 30, color: "#377eb8"},
@@ -76,22 +71,24 @@ Plotly.newPlot('myDiv', data, layout);
         </script>
     </div>
 
-<!--    ОСТАНЕТСЯ ЗДЕСЬ ДЛЯ ОБЩЕГО ВИДА ПРИЛОЖЕНИЯ-->
     <div class="col-lg-6" id="myDiv2">
         <script>
             var data = [{
   type: "sunburst",
-  ids: {{ ids | tojson | safe  }},
-  labels: {{ labels | tojson | safe  }},
-  parents: {{ parents | tojson | safe  }},
-  values:  {{ values | tojson  }},
+  direction: 'clockwise',
+  ids: {{ ids_right | tojson | safe  }},
+  labels: {{ labels_right | tojson | safe  }},
+  parents: {{ parents_right | tojson | safe  }},
+  values:  {{ values_right | tojson  }},
   textinfo: "label+value",
   insidetextorientation: "horizontal",
   branchvalues: "total",
 <!--  the line above sets the adequate representation of leaves-->
   outsidetextfont: {size: 30, color: "#377eb8"},
+<!--  rotation: 90,-->
+
   marker: {line: {width: 2},
-  colors: ["#17a2b8","#17a2b8","green","red","green","red"]},
+  colors: {{  colors_right | tojson | safe }}},
 }];
 
 var layout = {
