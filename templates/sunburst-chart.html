@@ -40,69 +40,83 @@
     <div class="col-lg-6" id="myDiv">
         <script>
             var data = [{
-  type: "sunburst",
-  direction: 'clockwise',
-  ids: {{ ids_left | tojson | safe  }},
-  labels: {{ labels_left | tojson | safe  }},
-  parents: {{ parents_left | tojson | safe  }},
-  values:  {{ values_left | tojson  }},
-  textinfo: "label+value",
-  insidetextorientation: "horizontal",
-<!--  rotation: 90,-->
-  branchvalues: "total",
-<!--  the line above sets the adequate representation of leaves-->
-  outsidetextfont: {size: 30, color: "#377eb8"},
-  marker: {line: {width: 2},
-  colors: ["#17a2b8","#17a2b8","green","red","green","red"]},
-}];
+                type: "sunburst",
+                ids: {{ ids_left | tojson | safe  }},
+                labels: {{ labels_left | tojson | safe  }},
+                parents: {{ parents_left | tojson | safe  }},
+                values:  {{ values_left | tojson  }},
+                leaf: {"opacity": 1},
+                textinfo: "label+value",
+                insidetextorientation: "horizontal",
+                <!--  rotation: 90,-->
+                branchvalues: "total",
+                <!--  the line above sets the adequate representation of leaves-->
+                outsidetextfont: {size: 30, color: "#377eb8"},
+                marker: {line: {width: 2},
+                colors: ["#17a2b8","#17a2b8","green","red","green","red"]},
+                sort: false,
+                }];
 
-var layout = {
-  title: {text: 'Готовые и не готовые платы по фабрике:'},
-  margin: {l: 50, r: 0, b: 0, t: 50},
-  width: 700,
-  height: 700,
-  font: {
-    size: 20
-    },
-};
-
-
-Plotly.newPlot('myDiv', data, layout);
+            var layout = {
+                title: {text: 'Готовые и не готовые платы по фабрике:'},
+                margin: {l: 50, r: 0, b: 0, t: 100},
+                width: 800,
+                height: 750,
+                font: {
+                size: 20
+            },
+            };
+            Plotly.newPlot('myDiv', data, layout);
         </script>
     </div>
 
     <div class="col-lg-6" id="myDiv2">
         <script>
-            var data = [{
-  type: "sunburst",
-  direction: 'clockwise',
-  ids: {{ ids_right | tojson | safe  }},
-  labels: {{ labels_right | tojson | safe  }},
-  parents: {{ parents_right | tojson | safe  }},
-  values:  {{ values_right | tojson  }},
-  textinfo: "label+value",
-  insidetextorientation: "horizontal",
-  branchvalues: "total",
-<!--  the line above sets the adequate representation of leaves-->
-  outsidetextfont: {size: 30, color: "#377eb8"},
-<!--  rotation: 90,-->
+            var data = [
+            {
+                type: "sunburst",
+                <!--  direction: 'clockwise',-->
+                ids: {{ ids_right | tojson | safe  }},
+                labels: {{ labels_right | tojson | safe  }},
+                parents: {{ parents_right | tojson | safe  }},
+                values:  {{ values_right | tojson  }},
+                leaf: {"opacity": 1},
+                insidetextorientation: "horizontal",
+                branchvalues: "total",
+                <!--  the line above sets the adequate representation of leaves-->
+                marker: {line: {width: 2},
+                colors: {{  colors_right | tojson | safe }}},
+                sort: false,
+            },
+            {
+                type: "pie",
+                hole: 0.8,
+                ids: {{ ids_right_bottom | tojson | safe }},
+                labels: {{ labels_right_bottom | tojson | safe  }},
+                values:  {{ values_right_bottom | tojson  }},
+                textposition: 'outside',
+                texttemplate: '%{label}: %{value}',
+                marker: {
+                    colors: {{  colors_right_bottom | tojson | safe  }}
+                },
+                sort: false,
+                showlegend: false,
+                rotation: 90,
+            }
+            ];
 
-  marker: {line: {width: 2},
-  colors: {{  colors_right | tojson | safe }}},
-}];
-
-var layout = {
-  title: {text: 'Готовые и не готовые платы по семейству:'},
-  margin: {l: 50, r: 0, b: 0, t: 50},
-  width: 700,
-  height: 700,
-  font: {
-    size: 20
-    },
-};
+            var layout = {
+                title: {text: 'Готовые и не готовые платы по семейству:'},
+                margin: {l: 150, r: 150, b: 150, t: 50},
+                width: 950,
+                height: 950,
+                font: {
+                size: 20
+                },
+            };
 
 
-Plotly.newPlot('myDiv2', data, layout);
+            Plotly.newPlot('myDiv2', data, layout);
         </script>
     </div>
 </div>

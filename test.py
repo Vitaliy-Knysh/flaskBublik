@@ -18,32 +18,52 @@ test_dict = {'family-1': [4, 7],
              'family-4': [3, 10]
              }
 
-val_right = []
+values_r = []
 colors = []
 parents_r = []
 ids_r = list(test_dict.keys())
-labels_r = list(test_dict.keys())
+labels_r = []
 colors_r = []
 
+ids_r_bottom = []
+labels_r_bottom = []
+values_r_bottom = []
+colors_r_bottom = []
+
 for i in test_dict:
-    val_right.append(test_dict[i][0] + test_dict[i][1])
+    labels_r.append(i + '<br>' + str(test_dict[i][0] + test_dict[i][1]))
+    values_r.append(test_dict[i][0] + test_dict[i][1])
     parents_r.append("")
     colors_r.append("#17a2b8")  # light blue
 
 for i in test_dict:
-    val_right.append(test_dict[i][0])
-    val_right.append(test_dict[i][1])
+    values_r.append(test_dict[i][0])
+    values_r.append(test_dict[i][1])
+    values_r_bottom.append(test_dict[i][0])
+    values_r_bottom.append(test_dict[i][1])
 
 for i in test_dict.keys():
     ids_r.append(i + ' - FAIL')
     ids_r.append(i + ' - PASS')
-    labels_r.append(i + ' not ready: ' + str(test_dict[i][0]))
-    labels_r.append(i + ' ready: ' + str(test_dict[i][1]))
+    ids_r_bottom.append(i + ' - FAIL')
+    ids_r_bottom.append(i + ' - PASS')
+    # labels_r.append(i + ' not ready: ' + str(test_dict[i][0]))
+    # labels_r.append(i + ' ready: ' + str(test_dict[i][1]))
+    labels_r_bottom.append(i + '-PASS')
+    labels_r_bottom.append(i + '-FAIL')
     parents_r.append(i)
     parents_r.append(i)
     colors_r.append('red')
     colors_r.append('green')
-print(colors_r)
+    colors_r_bottom.append('green')
+    colors_r_bottom.append('red')
+
+print(colors_r_bottom)
+strange_arr = [values_r_bottom[7]]
+for i in range(len(values_r_bottom) - 1):
+    strange_arr.append(values_r_bottom[i])
+print(strange_arr)
+
 
 
 @app.route('/')
@@ -69,8 +89,13 @@ def hello():
                            ids_right=ids_r,
                            labels_right=labels_r,
                            parents_right=parents_r,
-                           values_right=val_right,
+                           values_right=values_r,
                            colors_right=colors_r,
+
+                           ids_right_bottom=ids_r_bottom,
+                           labels_right_bottom=labels_r_bottom,
+                           values_right_bottom=strange_arr,
+                           colors_right_bottom=colors_r_bottom,
 
                            good_boards=1, bad_boards=1, all=1, good=1, bad=1)
 
